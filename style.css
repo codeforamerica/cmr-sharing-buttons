@@ -84,3 +84,7 @@ pre.html_code {
 	background-color: #ccc;
 	white-space: pre-wrap;
 }
+
+.button-container {
+	padding: 2px 0;
+}

@@ -1,5 +1,7 @@
 
 var STATE = {};
+var HOST = 'https://clearmyrecord.codeforamerica.org/';
+var PARAM_PREFIX = "?source=";
 var escaper = document.createElement('textarea');
 
 function getButtonState(){
@@ -9,27 +11,60 @@ function getButtonState(){
 	STATE.useSourceParam = $('input[name=add_source_param]').is(':checked');
 	STATE.sourceParam = $('input[name=source_param]').val();
 	// get colors
-	STATE.backgroundColor = $('input[name=background-color]').val();
-	STATE.color = $('input[name=text-color]').val();
+	STATE.backgroundColor = $('input[name=background-color]:checked').val();
+	STATE.color = $('input[name=text-color]:checked').val();
+	var url = HOST;
+	if (STATE.useSourceParam) {
+		url = HOST + PARAM_PREFIX + STATE.sourceParam;
+	}
+	STATE.fullLinkUrl = url;
 }
 
 function setContentFromState(){
 	// replace the text in all the buttons
-	// set the source param in all the links
-	// set the colors on all the buttons
+	// set source param
+	if (STATE.useSourceParam) {
+		$('.source_param.prefix').html(PARAM_PREFIX);
+		$('.source_param.output').html(STATE.sourceParam);
+	} else {
+		$('.source_param').html('');
+	}
+	var linkButtons = $('.cmr-button a')
+	linkButtons.attr('href', STATE.fullLinkUrl);
+	linkButtons.css({
+		"color": STATE.color,
+		"background-color": STATE.backgroundColor,
+	});
+	linkButtons.html(STATE.text);
+
+}
+
+function updateCodeSnippets(){
+	var buttonContainers = $('.button-container');
+	buttonContainers.each(function(i, container){
+		var container = $(container);
+		var outputFigure = container.next('.html_output');
+		escaper.textContent = container.html();
+		var preTag = outputFigure.find('pre.html_code');
+		preTag.html(escaper.innerHTML);
+	});
+}
+
+function updateCycle(){
+	getButtonState();
+	setContentFromState();
+	updateCodeSnippets();
 }
 
 function addEventListeners(){
 	$('input[name=source_param]').keyup(function(){
-		/*
-		lettters/numbers: 48-90
-		dash: 189
-		shift: 16
-		caps lock: 20
-		*/
 		if (this.value.match(/[^a-zA-Z1-9_\-]/)) {
 	    this.value = this.value.replace(/[^a-zA-Z1-9_\-]/g, '');
 		}
+	});
+
+	$('aside :input').change(function(){
+		updateCycle();
 	});
 }
 
@@ -46,23 +81,6 @@ function getNextSiblingByClass(start, className){
 	return node;
 }
 
-function selectKeyElements(){
-	var buttonContainer = document.getElementById("basic-link");
-	var preContainer = getNextSiblingByClass(buttonContainer, "html_output");
-	var preTag;
-	console.log([preContainer]);
-	for (var i = 0; i < preContainer.children.length; i++) {
-		var node = preContainer.children[i];
-		if( 
-			node.tagName.toLowerCase() == "pre") {
-			preTag = node;
-		}
-	}
-	return {
-		btn: buttonContainer,
-		pre: preTag,
-	};
-}
 
 function buildColorRadioOptions(){
 	var labels = $("aside fieldset label");
@@ -70,14 +88,6 @@ function buildColorRadioOptions(){
 		var colorCode = elem.children[0].value;
 		elem.style.backgroundColor = colorCode;
 	});
-}
-function createUpdater(){
-
-}
-
-function updateHtmlOutput(from, to){
-	escaper.textContent = from.innerHTML;
-	to.innerHTML = escaper.innerHTML;
 }
 
 function hexToRGB(hexString){
@@ -100,13 +110,9 @@ function isDark(colorCode){
 }
 
 function main(e){
-	console.log(e);
-	addEventListeners();
-	var elems = selectKeyElements();
-	updateHtmlOutput(elems.btn, elems.pre)
 	buildColorRadioOptions();
-	getButtonState();
-	console.log(STATE);
+	addEventListeners();
+	updateCycle();
 }
 
 document.addEventListener("DOMContentLoaded", main);
