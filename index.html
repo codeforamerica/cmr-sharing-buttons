@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Shareable buttons for Clear My Record</title>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+		  font-size: 14px;
+		  line-height: 1.5;
+		  font-weight: 300;
+		}
+		main {
+			margin-left: 24em;
+			max-width: 40em;
+			padding: 1em 2em;
+		}
+		aside {
+			padding: 2em 2em;
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 20em;
+			color: #fff;
+			background-color: #444;
+			height: 100%;
+		}
+		label, .labeltext, .helptext {
+			display: block;
+		}
+		.labeltext {
+			font-weight: 600;
+		}
+		figure {
+			margin: 1em 0;
+		}
+		aside input[type="text"] {
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+
+<main>
+
+<header>
+<h1>Shareable buttons for Clear My Record</h1>
+
+<figure>
+	<figcaption>Link URL</figcaption>
+	<div>
+		<code class="url">https://clearmyrecord.codeforamerica.org/</code><code class="source_param prefix">?source=</code><code class="source_param output">mytag</code>
+	</div>
+</figure>
+	
+</header>
+<aside class="settings_menu">
+<h2>Customize the buttons</h2>
+
+<p>
+	<label class="button_control">
+		<span class="labeltext">What should be on the button?</span>
+		<input type="text" name="button_text" value="Apply to Clear My Record">
+	</label>
+</p>
+
+<p>If a button is embedded on a webpage, it will typically know where it came from. But buttons that will be displayed in emails or apps may need to include a <code>source</code> parameter to identify where they came from.</p>
+<p>
+<label class="button_control">
+	<input type="checkbox" name="add_source_param">
+	<span class="labeltext-inline">Add a <code>source</code> parameter</span>
+</label>
+</p>
+
+<p>
+<label class="button_control">
+	<span class="labeltext">What is your source parameter?</span>
+	<span class="helptext">Lowercase letters, dashes, and underscores only please.</span>
+	<input type="text" name="source_param" value="">
+</label>
+</p>
+
+	
+
+
+</aside>
+<h2>Basic Link Button</h2>
+	
+<p>
+	<a href="https://clearmyrecord.codeforamerica.org">
+		Apply to Clear My Record
+	</a>
+</p>
+
+<pre class="html_code">
+</pre>
+
+<h2>A Button for Emails</h2>
+
+<p>
+	<a href="https://clearmyrecord.codeforamerica.org">
+		Apply to Clear My Record
+	</a>
+</p>
+
+
+</main>
+
+	
+</body>
+</html>
