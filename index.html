@@ -4,41 +4,11 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Shareable buttons for Clear My Record</title>
-	<style>
-		body {
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-		  font-size: 14px;
-		  line-height: 1.5;
-		  font-weight: 300;
-		}
-		main {
-			margin-left: 24em;
-			max-width: 40em;
-			padding: 1em 2em;
-		}
-		aside {
-			padding: 2em 2em;
-			position: fixed;
-			left: 0;
-			top: 0;
-			width: 20em;
-			color: #fff;
-			background-color: #444;
-			height: 100%;
-		}
-		label, .labeltext, .helptext {
-			display: block;
-		}
-		.labeltext {
-			font-weight: 600;
-		}
-		figure {
-			margin: 1em 0;
-		}
-		aside input[type="text"] {
-			width: 100%;
-		}
-	</style>
+	<link rel="stylesheet" href="./style.css">
+	<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+	<script src="./main.js"></script>
+
 </head>
 <body>
 
@@ -56,19 +26,22 @@
 	
 </header>
 <aside class="settings_menu">
-<h2>Customize the buttons</h2>
+<h2>Settings</h2>
 
+<h3>Text</h3>
 <p>
 	<label class="button_control">
-		<span class="labeltext">What should be on the button?</span>
+		<span class="labeltext">What should the button say?</span>
 		<input type="text" name="button_text" value="Apply to Clear My Record">
 	</label>
 </p>
 
-<p>If a button is embedded on a webpage, it will typically know where it came from. But buttons that will be displayed in emails or apps may need to include a <code>source</code> parameter to identify where they came from.</p>
+<h3>Source Parameter</h3>
+
+<p class="note">If a button is embedded on a webpage, it will typically know where it came from. But buttons that will be displayed in emails or apps may need to include a <code>source</code> parameter to identify where they came from.</p>
 <p>
 <label class="button_control">
-	<input type="checkbox" name="add_source_param">
+	<input type="checkbox" name="add_source_param" checked>
 	<span class="labeltext-inline">Add a <code>source</code> parameter</span>
 </label>
 </p>
@@ -76,25 +49,51 @@
 <p>
 <label class="button_control">
 	<span class="labeltext">What is your source parameter?</span>
-	<span class="helptext">Lowercase letters, dashes, and underscores only please.</span>
-	<input type="text" name="source_param" value="">
+	<span class="helptext">Letters, numbers, dashes, and underscores only please.</span>
+	<input type="text" name="source_param" value="mytag" pattern="[a-fA-F0-9_\-]">
 </label>
 </p>
 
-	
+<h3>Button Colors</h3>
+<fieldset class="color-choices">
+	<legend>Background Color</legend>
+	<label class="button_control-inline">
+	<input type="radio" name="background-color" value="#004A6C">
+	</label>
+	<label class="button_control-inline">
+	<input type="radio" name="background-color" value="#069ED6">
+	</label>
+	<label class="button_control-inline">
+	<input type="radio" name="background-color" value="#FEE228" checked>
+	</label>
+</fieldset>
+
+<fieldset class="color-choices">
+	<legend>Font Color</legend>
+	<label class="button_control-inline">
+	<input type="radio" name="text-color" value="#004A6C" checked>
+	</label>
+	<label class="button_control-inline">
+	<input type="radio" name="text-color" value="#069ED6">
+	</label>
+	<label class="button_control-inline">
+	<input type="radio" name="text-color" value="#FEE228">
+	</label>
+</fieldset>
 
 
 </aside>
-<h2>Basic Link Button</h2>
-	
-<p>
-	<a href="https://clearmyrecord.codeforamerica.org">
-		Apply to Clear My Record
-	</a>
-</p>
 
-<pre class="html_code">
-</pre>
+
+<h2>Basic link button with embedded styles</h2>
+
+<div id="basic-link" class="button-container"><p class="cmr-button"><style>a#clearmyrecord-link {font-family: -apple-system, "Segoe UI", "Roboto", sans-serif; font-size: 16px; padding: 12px 32px; border-radius: 6px; background-color: #FEE228; color: #004A6C; text-decoration: none; font-weight: bold;}</style><a id="clearmyrecord-link" href="https://clearmyrecord.codeforamerica.org">Apply to Clear My Record</a></p></div>
+
+<figure class="html_output">
+	<figcaption>Raw HTML</figcaption>
+	<pre class="html_code">
+	</pre>
+</figure>
 
 <h2>A Button for Emails</h2>
 
@@ -103,6 +102,12 @@
 		Apply to Clear My Record
 	</a>
 </p>
+
+<figure class="html_output">
+<figcaption>Raw HTML</figcaption>
+<pre class="html_code">
+</pre>
+</figure>
 
 
 </main>
