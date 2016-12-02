@@ -4,6 +4,12 @@ var HOST = 'https://clearmyrecord.codeforamerica.org/';
 var PARAM_PREFIX = "?source=";
 var escaper = document.createElement('textarea');
 
+var BORDER_COLORS = {
+	'#FEE228': '#d8bc01',
+	'#004A6C': '#003153',
+	'#069ED6': '#006BA3',
+};
+
 function getButtonState(){
 	// get text
 	STATE.text = $('input[name=button_text').val();
@@ -13,6 +19,7 @@ function getButtonState(){
 	// get colors
 	STATE.backgroundColor = $('input[name=background-color]:checked').val();
 	STATE.color = $('input[name=text-color]:checked').val();
+	STATE.borderColor = BORDER_COLORS[STATE.backgroundColor];
 	var url = HOST;
 	if (STATE.useSourceParam) {
 		url = HOST + PARAM_PREFIX + STATE.sourceParam;
@@ -34,6 +41,7 @@ function setContentFromState(){
 	linkButtons.css({
 		"color": STATE.color,
 		"background-color": STATE.backgroundColor,
+		"border-color": STATE.borderColor,
 	});
 	linkButtons.html(STATE.text);
 
