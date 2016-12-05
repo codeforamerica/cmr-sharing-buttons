@@ -13,6 +13,7 @@ var BORDER_COLORS = {
 function getButtonState(){
 	// get text
 	STATE.text = $('input[name=button_text').val();
+	STATE.messageText = $('textarea[name=message_text').val();
 	// get source param
 	STATE.useSourceParam = $('input[name=add_source_param]').is(':checked');
 	STATE.sourceParam = $('input[name=source_param]').val();
@@ -36,7 +37,8 @@ function setContentFromState(){
 	} else {
 		$('.source_param').html('');
 	}
-	var linkButtons = $('.cmr-button a')
+	var linkButtons = $('.cmr-button a');
+	var linkMessages = $('.cmr-btn-msg');
 	linkButtons.attr('href', STATE.fullLinkUrl);
 	linkButtons.css({
 		"color": STATE.color,
@@ -44,6 +46,7 @@ function setContentFromState(){
 		"border-color": STATE.borderColor,
 	});
 	linkButtons.html(STATE.text);
+	linkMessages.html(STATE.messageText)
 
 }
 
